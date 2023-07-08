@@ -1,0 +1,8 @@
+On peut règler la longueur des chaînes de caractères facilement dans un fichier lex,
+si on veut qu'une chaîne de caractères ne soit pas d'une longueur de 6 caractères,
+on peut  le définir simplement avec [A-Z]{7, } pour avoir une longueur de plus de
+6 caractères. Si on veut que le nom et le prenom ne soient pas Dossier on peut par
+exemple définir un type qui serait une chaîne de caractères qui représenterait le 
+nom et le prénom tous les deux séparés par un /, ainsi quand on mettrait Dossier
+comme nom ou prénom, cela retournera Dossier et non le type nom/prenom et ainsi
+la spécification yacc ne serait plus correcte et renverrait une erreur.

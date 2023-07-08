@@ -1,0 +1,30 @@
+%{
+#include<stdio.h>
+%}
+%token DOSSIER CODEDOSS NOMP DATE RETOUR NUMV CODEA HEURE HEUREARR ESP
+%%
+S	: DOSSIER ESP CODEDOSS S3 S1
+	;
+
+S1 	: NOMP S3 S2
+	;
+
+S2	: DATE ESP NUMV ESP CODEA ESP HEURE ESP CODEA ESP A ESP HEURE S3 S4
+	;
+
+A	: HEURE
+	| HEUREARR
+
+S3	: ESP RETOUR
+	| RETOUR
+	;
+
+S4 	: S2
+	| RETOUR { printf("BILLET ACCEPTE \n"); YYACCEPT ; }
+	;
+%%
+#include "lex.yy.c"
+int main(){
+	yyparse(); 
+	printf("\nVoila, j'ai interprete\n"); 
+}

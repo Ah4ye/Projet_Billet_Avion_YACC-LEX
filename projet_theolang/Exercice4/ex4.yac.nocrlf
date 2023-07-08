@@ -1,0 +1,46 @@
+%{
+	#include<stdio.h>
+	int nb=0;
+%}
+%token DOSSIER CODEDOSS NOMP DATE RETOUR NUMV CODEA BAG POIDS HEURES PTS MIN HEUREARR ESP
+%start S5
+%%
+
+S	: DOSSIER ESP CODEDOSS S3 S1
+	;
+
+S1 	: NOMP N
+	;
+
+N	: ESP S1
+	| S3 S2
+	;
+
+S2	: DATE ESP NUMV ESP CODEA ESP H ESP CODEA ESP A ESP BAG ESP POIDS ESP D S3 S4
+	;
+
+H	: HEURES PTS MIN
+	;
+	
+A	: H
+	| HEUREARR
+	;
+
+D	: HEURES PTS MIN { nb = nb + ( ($1)*60 + $3) ;} 
+	;
+
+S3	: ESP RETOUR
+	| RETOUR
+	;
+
+S4 	: S2
+	| 
+	;
+
+S5	: S RETOUR { printf("BILLET ACCEPTE, LE VOL DURE %d MINUTES \n",nb); YYACCEPT ; }
+%%
+#include "lex.yy.c"
+int main(){
+	yyparse(); 
+	printf("\nVoila, j'ai interprete\n"); 
+}
